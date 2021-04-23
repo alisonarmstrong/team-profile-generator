@@ -1,4 +1,6 @@
 const Engineer = require("../library/engineer");
+const Intern = require("../library/intern");
+const Manager = require("../library/manager");
 
 const generateTeam = team => {
     const generateManager = manager => {
