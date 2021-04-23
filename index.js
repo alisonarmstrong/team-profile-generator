@@ -4,6 +4,7 @@ const Intern = require("./library/intern");
 const inquirer = require("inquirer");
 const fs = require("fs");
 
+
 function employeeInfo() {
     inquirer.prompt([
         {
@@ -19,7 +20,7 @@ function employeeInfo() {
         else if (val.name === 'Engineer') {
             engineerInfo();
         } 
-        (val.name === 'Intern') {
+        else if (val.name === 'Intern') {
             internInfo();
         }
     })
@@ -98,13 +99,5 @@ function internInfo() {
             name: 'school',
         },
     ])
-}
 
-function generateHTML(fileName, data) {
-    fs.writeFile(fileName, data, "utf8", function (err) {
-        if (err) {
-            throw err;
-        }
-        console.log("You have successfully enetered your employee informaion")
-    })
 }
