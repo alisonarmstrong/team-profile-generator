@@ -37,5 +37,21 @@ module.exports = team => {
         <title>The Team</title>
       </head>
       
-      <div>`
+      <body>
+      <div class="container">
+      <div class="row">
+          <div class="col-12 jumbotron mb-3">
+              <h1 class="text-center">Employees</h1>
+          </div>
+      </div>
+  </div>
+  <div class="container">
+      <div class="row">
+          <div class="col-12 flex justify-content-center">
+              {{ team }}
+          </div>
+      </div>
+  </div>
+
+      </body>`
 }

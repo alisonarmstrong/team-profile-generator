@@ -1,4 +1,4 @@
-class Intern {
+class Manager {
     constructor(name, id, email, officeNumber) {
         this.name = name;
         this.id = id;

@@ -3,7 +3,42 @@ const Engineer = require("./library/engineer");
 const Intern = require("./library/intern");
 const inquirer = require("inquirer");
 const fs = require("fs");
+const template = require("./source/template");
+const team = []
+const html = (response) =>
+`<!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="style.css"
+      </head>
+      
+      <body>
+      <div class="container">
+      <div class="row">
+          <div class="col-12 jumbotron mb-3">
+              <h1 class="text-center">Employees</h1>
+          </div>
+      </div>
+  </div>
+  <div class="container">
+      <div class="row">
+          <div class="col-12 flex justify-content-center">
+              <p>Name:${response.name}</p>
+              <p>ID:${response.id}</p>
+              <p>Email:${response.email}</p>
+              <p>School:${response.school}</p>
+              <p>GitHub${response.github}</p>
+              <p>Office Number${response.officenumber}</p>
+          </div>
+      </div>
+  </div>
 
+      </body>`;
 
 function employeeInfo() {
     inquirer.prompt([
@@ -14,13 +49,13 @@ function employeeInfo() {
         choices: ['Manager', 'Engineer', 'Intern'],
         },
     ]).then(val => {
-        if (val.name === 'Manager') {
+        if (val.type === 'Manager') {
             managerInfo();
         }
-        else if (val.name === 'Engineer') {
+        else if (val.type === 'Engineer') {
             engineerInfo();
         } 
-        else if (val.name === 'Intern') {
+        else if (val.type === 'Intern') {
             internInfo();
         }
     })
@@ -48,7 +83,12 @@ function managerInfo() {
             message: 'Managers Office Number:',
             name: 'office number',
         },
-    ])
+    ]).then(function(answer) {
+        let manager = new Manager(answer.name, answer.id, answer.email, answer.officenumber)
+        team.push(manager);
+
+        employeeInfo()
+    })
 }
 
 function engineerInfo() {
@@ -73,7 +113,12 @@ function engineerInfo() {
             message: 'Engineers GitHub:',
             name: 'GitHub',
         },
-    ])
+    ]).then(function(answer) {
+        let Engineer = new Engineer(answer.name, answer.id, answer.email, answer.github)
+        team.push(engineer);
+
+        employeeInfo()
+    })
 }
 
 function internInfo() {
@@ -98,6 +143,14 @@ function internInfo() {
             message: 'Intern School:',
             name: 'school',
         },
-    ])
+    ]).then((response) => {
+        var createHTML = html(response)
+        fs.writeFile('team.html', createHTML, (err) =>
+        err ? console.error(err) : console.log('created team profile')
+        )
+    }).catch(err => console.log(err))
 
-}
+};
+
+
+employeeInfo();
