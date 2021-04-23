@@ -83,12 +83,12 @@ function managerInfo() {
             message: 'Managers Office Number:',
             name: 'office number',
         },
-    ]).then(function(answer) {
-        let manager = new Manager(answer.name, answer.id, answer.email, answer.officenumber)
-        team.push(manager);
-
-        employeeInfo()
-    })
+    ]).then((response) => {
+        var createHTML = html(response)
+        fs.writeFile('team.html', createHTML, (err) =>
+        err ? console.error(err) : console.log('created team profile')
+        )
+    }).catch(err => console.log(err))
 }
 
 function engineerInfo() {
@@ -113,12 +113,12 @@ function engineerInfo() {
             message: 'Engineers GitHub:',
             name: 'GitHub',
         },
-    ]).then(function(answer) {
-        let Engineer = new Engineer(answer.name, answer.id, answer.email, answer.github)
-        team.push(engineer);
-
-        employeeInfo()
-    })
+    ]).then((response) => {
+        var createHTML = html(response)
+        fs.writeFile('team.html', createHTML, (err) =>
+        err ? console.error(err) : console.log('created team profile')
+        )
+    }).catch(err => console.log(err))
 }
 
 function internInfo() {
